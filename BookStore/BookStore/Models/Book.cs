@@ -6,5 +6,5 @@ public class Book
     public string Title { get; set; } = null!;
     public double Price { get; set; }
     public int CategoryId { get; set; }
-    public Category Category { get; set; } = null!;
+    public Categories Category { get; set; } = null!;
 }
