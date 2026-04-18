@@ -1,9 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 namespace BookStore.Models;
-
-public class Order
+public class Order : BaseEntity
 {
-    public int Id { get; set; }
-    public int UserId { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public ICollection<OrderItem> OrderItem { get; set; }
+    [Required]
+    public string UserId { get; set; } = string.Empty;
+    public ApplicationUser User { get; set; } = null!;
+    public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 }
