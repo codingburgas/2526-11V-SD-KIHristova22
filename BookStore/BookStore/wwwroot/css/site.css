@@ -1,36 +1,48 @@
-/* Pastel green theme for a clean student project look.
-   Keep it simple: set a small palette, then lightly override Bootstrap components. */
+/* Cohesive soft green theme (Bootstrap overrides).
+   Goal: consistent palette everywhere (no default blue accents). */
 
 :root {
-  /* Palette */
-  --app-bg: #f2faf5;           /* minty background */
-  --app-bg-2: #e7f6ee;         /* slightly deeper mint */
-  --app-surface: #ffffff;      /* cards, tables */
-  --app-border: #d3e9dc;       /* soft border */
-  --app-text: #1f2b24;         /* deep green-gray */
-  --app-muted: #51635a;
+  /* Provided palette (slightly darker soft green, no blues anywhere) */
+  --theme-navbar-bg: #D7E8D7;
+  --theme-bg: #EEF6EE;
+  --theme-surface: #FFFFFF;
+  --theme-border: #C7DBC7;
 
-  /* Darker pastel green accents (still soft, but with more contrast) */
-  --app-green: #3f8764;        /* primary */
-  --app-green-2: #356f55;      /* hover */
-  --app-green-3: #2b5e46;      /* active */
-  --app-accent: #bfe8d2;       /* pale highlight */
+  --theme-primary: #6FA676;     /* primary buttons / active */
+  --theme-primary-hover: #5F9566;
+  --theme-secondary: #8AB891;   /* secondary buttons */
+  --theme-active: #5A8F62;      /* active states */
 
-  --app-radius: 14px;
-  --app-shadow: 0 10px 26px rgba(31, 43, 36, 0.10);
-  --app-shadow-sm: 0 6px 14px rgba(31, 43, 36, 0.08);
-  --app-focus: 0 0 0 0.25rem rgba(79, 154, 115, 0.25);
+  --theme-text: #2F4F38;
+  --theme-text-2: #5F7A66;
 
-  /* Bootstrap variables (works with Bootstrap 5+). */
-  --bs-body-bg: var(--app-bg);
-  --bs-body-color: var(--app-text);
-  --bs-border-color: var(--app-border);
-  --bs-link-color: var(--app-green-3);
-  --bs-link-hover-color: var(--app-green-2);
+  --theme-radius: 14px;
+  --theme-shadow-sm: 0 6px 16px rgba(47, 79, 56, 0.10);
+  --theme-shadow: 0 12px 28px rgba(47, 79, 56, 0.12);
+  --theme-focus: 0 0 0 0.25rem rgba(111, 166, 118, 0.32);
+
+  /* Baseline Bootstrap CSS variables that help with typography + borders */
+  --bs-body-bg: var(--theme-bg);
+  --bs-body-color: var(--theme-text);
+  --bs-border-color: var(--theme-border);
+  --bs-link-color: var(--theme-primary);
+  --bs-link-hover-color: var(--theme-primary-hover);
+
+  /* Override Bootstrap's "primary/secondary/etc" so all utilities/components go green. */
+  --bs-primary: var(--theme-primary);
+  --bs-primary-rgb: 111, 166, 118;
+  --bs-secondary: var(--theme-secondary);
+  --bs-secondary-rgb: 138, 184, 145;
+  --bs-success: var(--theme-primary);
+  --bs-success-rgb: 111, 166, 118;
+  --bs-info: var(--theme-secondary);
+  --bs-info-rgb: 138, 184, 145;
+  --bs-focus-ring-color: rgba(111, 166, 118, 0.32);
 }
 
 html {
   font-size: 14px;
+  background-color: var(--theme-bg);
 }
 
 @media (min-width: 768px) {
@@ -38,57 +50,55 @@ html {
 }
 
 body {
-  /* Background: keep it soft and avoid mid-page "seams".
-     A mirrored gradient (light -> lighter -> light) can create a visible band at the midpoint on some screens. */
   min-height: 100vh;
-  background-color: var(--app-bg);
+  background-color: var(--theme-bg);
+  /* Gentle depth with no visible seams */
   background-image:
-    /* Multi-stop fades prevent a crisp "edge" that can read as a horizontal line. */
-    radial-gradient(1200px 560px at 12% -8%,
-      rgba(191, 232, 210, 0.38) 0%,
-      rgba(191, 232, 210, 0.20) 42%,
-      rgba(191, 232, 210, 0.08) 62%,
-      rgba(191, 232, 210, 0.00) 84%),
-    radial-gradient(980px 520px at 92% 0%,
-      rgba(231, 246, 238, 0.56) 0%,
-      rgba(231, 246, 238, 0.26) 46%,
-      rgba(231, 246, 238, 0.10) 66%,
-      rgba(231, 246, 238, 0.00) 86%),
-    linear-gradient(180deg, #eef9f2 0%, #f6fff9 100%);
+    radial-gradient(1100px 520px at 18% -12%,
+      rgba(138, 184, 145, 0.18) 0%,
+      rgba(138, 184, 145, 0.08) 48%,
+      rgba(138, 184, 145, 0.00) 78%),
+    radial-gradient(900px 520px at 92% 0%,
+      rgba(111, 166, 118, 0.14) 0%,
+      rgba(111, 166, 118, 0.06) 52%,
+      rgba(111, 166, 118, 0.00) 82%);
   background-repeat: no-repeat;
-  color: var(--app-text);
+  color: var(--theme-text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-html {
-  background-color: var(--app-bg);
-}
-
-/* Layout helpers */
+/* Layout spacing */
 .app-main {
   padding: 18px 0 42px;
 }
 
-/* Navbar */
+/* Navbar (keeps existing navbar-green class) */
 .navbar.navbar-green {
-  background: linear-gradient(180deg, #e1f6ea 0%, #d3f0e1 100%);
-  /* Avoid a harsh separator line; use a softer border and a diffused shadow. */
-  border-bottom: 1px solid rgba(43, 94, 70, 0.10);
-  /* The previous shadow looked like a thick gray band on light backgrounds. */
-  box-shadow: 0 14px 26px -26px rgba(31, 43, 36, 0.65);
+  background: var(--theme-navbar-bg);
+  border-bottom: 1px solid var(--theme-border);
+  /* Very soft separation (no dark band) */
+  box-shadow: 0 10px 24px -26px rgba(47, 79, 56, 0.35);
 }
 
-.navbar.navbar-green .navbar-brand {
-  color: var(--app-text);
-  letter-spacing: 0.2px;
-}
-
+.navbar.navbar-green .navbar-brand,
 .navbar.navbar-green .nav-link {
-  color: rgba(31, 43, 36, 0.78);
+  color: var(--theme-text);
 }
 
 .navbar.navbar-green .nav-link:hover {
-  color: rgba(31, 43, 36, 1);
+  color: var(--theme-text-2);
+}
+
+/* Links */
+a {
+  color: var(--theme-primary);
+  text-decoration-color: rgba(111, 166, 118, 0.35);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--theme-primary-hover);
+  text-decoration-color: rgba(95, 149, 102, 0.50);
 }
 
 /* Buttons */
@@ -96,127 +106,277 @@ html {
   border-radius: 12px;
 }
 
+/* Force all Bootstrap button variants into a consistent green system (no blue anywhere). */
+:root {
+  --btn-primary: #6FA676;
+  --btn-hover: #5F9566;
+  --btn-active: #4F7F55;
+  --btn-outline-border: #6FA676;
+  --btn-outline-text: #2F4F38;
+  --btn-disabled: #BFD4BF;
+}
+
 .btn-primary {
-  background-color: var(--app-green);
-  border-color: var(--app-green);
-  box-shadow: 0 8px 18px rgba(79, 154, 115, 0.18);
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: var(--btn-primary);
+  --bs-btn-border-color: var(--btn-primary);
+  --bs-btn-hover-bg: var(--btn-hover);
+  --bs-btn-hover-border-color: var(--btn-hover);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
+  box-shadow: 0 10px 18px rgba(111, 166, 118, 0.18);
 }
 
-.btn-primary:hover {
-  background-color: var(--app-green-2);
-  border-color: var(--app-green-2);
+.btn-outline-primary {
+  --bs-btn-color: var(--btn-outline-text);
+  --bs-btn-border-color: var(--btn-outline-border);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--btn-primary);
+  --bs-btn-hover-border-color: var(--btn-primary);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
 }
 
-.btn-primary:active {
-  background-color: var(--app-green-3) !important;
-  border-color: var(--app-green-3) !important;
+.btn-secondary {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: var(--btn-primary);
+  --bs-btn-border-color: var(--btn-primary);
+  --bs-btn-hover-bg: var(--btn-hover);
+  --bs-btn-hover-border-color: var(--btn-hover);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
 }
 
 .btn-outline-secondary {
-  border-color: rgba(81, 99, 90, 0.35);
-  color: rgba(31, 43, 36, 0.85);
+  --bs-btn-color: var(--btn-outline-text);
+  --bs-btn-border-color: var(--btn-outline-border);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--btn-primary);
+  --bs-btn-hover-border-color: var(--btn-primary);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
 }
 
-.btn-outline-secondary:hover {
-  background-color: rgba(191, 232, 210, 0.35);
-  border-color: rgba(81, 99, 90, 0.25);
-  color: var(--app-text);
+/* Any other Bootstrap button variants (success/info/warning/danger/etc) should also be green. */
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger,
+.btn-dark,
+.btn-light {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: var(--btn-primary);
+  --bs-btn-border-color: var(--btn-primary);
+  --bs-btn-hover-bg: var(--btn-hover);
+  --bs-btn-hover-border-color: var(--btn-hover);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
 }
 
-/* Make Bootstrap "primary" variants match the green theme (used on the Home/Dashboard page). */
-.btn-outline-primary {
-  color: var(--app-green-3);
-  border-color: rgba(63, 135, 100, 0.55);
+.btn-outline-success,
+.btn-outline-info,
+.btn-outline-warning,
+.btn-outline-danger,
+.btn-outline-dark,
+.btn-outline-light {
+  --bs-btn-color: var(--btn-outline-text);
+  --bs-btn-border-color: var(--btn-outline-border);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--btn-primary);
+  --bs-btn-hover-border-color: var(--btn-primary);
+  --bs-btn-active-bg: var(--btn-active);
+  --bs-btn-active-border-color: var(--btn-active);
+  --bs-btn-focus-shadow-rgb: 111, 166, 118;
 }
 
-.btn-outline-primary:hover {
-  color: var(--app-text);
-  background-color: rgba(63, 135, 100, 0.12);
-  border-color: rgba(63, 135, 100, 0.55);
+.btn-link {
+  color: var(--btn-primary);
+  text-decoration-color: rgba(111, 166, 118, 0.35);
 }
 
-.btn-outline-primary:active {
-  background-color: rgba(63, 135, 100, 0.18) !important;
-  border-color: rgba(43, 94, 70, 0.55) !important;
+.btn-link:hover {
+  color: var(--btn-hover);
+  text-decoration-color: rgba(95, 149, 102, 0.55);
 }
 
-.text-primary {
-  color: var(--app-green-3) !important;
+.btn:disabled,
+.btn.disabled,
+fieldset:disabled .btn {
+  opacity: 1;
+  background-color: var(--btn-disabled) !important;
+  border-color: var(--btn-disabled) !important;
+  color: rgba(47, 79, 56, 0.65) !important;
+  box-shadow: none !important;
 }
 
-.bg-primary {
-  background-color: var(--app-green) !important;
+.btn-outline-primary:disabled,
+.btn-outline-primary.disabled,
+.btn-outline-secondary:disabled,
+.btn-outline-secondary.disabled,
+.btn-outline-success:disabled,
+.btn-outline-success.disabled,
+.btn-outline-info:disabled,
+.btn-outline-info.disabled,
+.btn-outline-warning:disabled,
+.btn-outline-warning.disabled,
+.btn-outline-danger:disabled,
+.btn-outline-danger.disabled,
+.btn-outline-dark:disabled,
+.btn-outline-dark.disabled,
+.btn-outline-light:disabled,
+.btn-outline-light.disabled {
+  background-color: transparent !important;
+  border-color: var(--btn-disabled) !important;
+  color: rgba(47, 79, 56, 0.55) !important;
 }
 
-.border-primary {
-  border-color: rgba(63, 135, 100, 0.40) !important;
-}
-
+/* Focus ring: remove Bootstrap blue */
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-select:focus,
 .form-check-input:focus {
-  box-shadow: var(--app-focus);
+  box-shadow: var(--theme-focus);
+  border-color: rgba(111, 166, 118, 0.70);
 }
 
-/* Cards */
+/* Utility colors (kills leftover blue "primary" accents) */
+.text-primary { color: var(--theme-primary) !important; }
+.bg-primary { background-color: var(--theme-primary) !important; }
+.border-primary { border-color: rgba(111, 166, 118, 0.55) !important; }
+
+/* Cards / panels */
 .card {
-  border-color: var(--app-border);
-  border-radius: var(--app-radius);
-  box-shadow: var(--app-shadow-sm);
-  background: var(--app-surface);
+  background: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius);
+  box-shadow: var(--theme-shadow-sm);
 }
 
-.card.card-body {
-  border-radius: var(--app-radius);
+.card-footer {
+  border-top: 1px solid var(--theme-border);
+}
+
+/* Bootstrap components that often keep "primary blue" if not overridden */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: var(--theme-primary);
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: var(--theme-text);
+  border-color: var(--theme-border) var(--theme-border) var(--theme-surface);
+}
+
+.nav-tabs {
+  border-bottom-color: var(--theme-border);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: rgba(111, 166, 118, 0.22);
+  color: var(--theme-text);
+}
+
+.pagination .page-link {
+  color: var(--theme-active);
+  border-color: var(--theme-border);
+}
+
+.pagination .page-link:hover {
+  color: var(--theme-text);
+  background-color: rgba(138, 184, 145, 0.20);
+  border-color: var(--theme-border);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--theme-primary);
+  border-color: var(--theme-primary);
+  color: #ffffff;
+}
+
+.list-group-item.active {
+  background-color: var(--theme-primary);
+  border-color: var(--theme-primary);
+}
+
+.form-check-input:checked {
+  background-color: var(--theme-primary);
+  border-color: var(--theme-primary);
+}
+
+.form-check-input:checked:focus {
+  box-shadow: var(--theme-focus);
 }
 
 /* Tables */
 .table {
-  background: var(--app-surface);
-  border-color: var(--app-border);
-  border-radius: var(--app-radius);
+  background: var(--theme-surface);
+  border-color: var(--theme-border);
+  border-radius: var(--theme-radius);
   overflow: hidden;
-  box-shadow: var(--app-shadow-sm);
+  box-shadow: var(--theme-shadow-sm);
 }
 
 .table thead th {
-  background: linear-gradient(180deg, #f4fff9 0%, #eaf8f0 100%);
-  color: rgba(31, 43, 36, 0.85);
-  border-bottom-color: var(--app-border);
-  font-weight: 600;
+  background: rgba(138, 184, 145, 0.20);
+  color: var(--theme-text);
+  border-bottom-color: var(--theme-border);
+  font-weight: 650;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-bg-type: rgba(231, 246, 238, 0.55);
+  --bs-table-bg-type: rgba(238, 246, 238, 0.85);
 }
 
 .table tbody tr:hover > * {
-  background-color: rgba(191, 232, 210, 0.22);
+  background-color: rgba(138, 184, 145, 0.16);
 }
 
 /* Forms */
-.form-control,
-.form-select {
-  border-color: rgba(211, 233, 220, 0.95);
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.92);
-}
-
-.form-control::placeholder {
-  color: rgba(81, 99, 90, 0.55);
-}
-
 label.form-label {
-  color: rgba(31, 43, 36, 0.88);
+  color: var(--theme-text);
   font-weight: 600;
 }
 
+.form-control,
+.form-select {
+  background-color: var(--theme-surface);
+  border-color: var(--theme-border);
+  border-radius: 12px;
+  color: var(--theme-text);
+}
+
+.form-control::placeholder {
+  color: rgba(95, 122, 102, 0.58);
+}
+
+.form-text,
+.text-muted {
+  color: var(--theme-text-2) !important;
+}
+
+/* Alerts (soft green-tinted) */
 .alert {
-  border-radius: var(--app-radius);
-  border-color: rgba(211, 233, 220, 0.9);
+  border-radius: var(--theme-radius);
+  border-color: var(--theme-border);
+}
+
+.alert-info {
+  background-color: rgba(138, 184, 145, 0.18);
+  color: var(--theme-text);
+}
+
+.alert-success {
+  background-color: rgba(111, 166, 118, 0.16);
+  color: var(--theme-text);
 }
 
 /* Keep template behavior for floating labels placeholders */
