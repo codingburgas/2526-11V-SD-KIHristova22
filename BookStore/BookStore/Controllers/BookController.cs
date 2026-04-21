@@ -39,6 +39,23 @@ public class BookController(ApplicationDbContext db) : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var book = await _db.Books
+            .AsNoTracking()
+            .Include(b => b.Category)
+            .FirstOrDefaultAsync(b => b.Id == id);
+
+        if (book is null)
+        {
+            return NotFound();
+        }
+
+        // Views are stored under Views/Books (plural) in this project.
+        return View("~/Views/Books/Details.cshtml", book);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> Create()
     {
         await PopulateCategoriesAsync();

@@ -13,7 +13,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-green">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">BookStore</span>
+            <a class="navbar-brand mb-0 h1" asp-controller="Home" asp-action="Index">BookStore</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,10 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <span class="nav-link text-dark">Home</span>
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Books</a>
                     </li>
                 </ul>
             </div>
