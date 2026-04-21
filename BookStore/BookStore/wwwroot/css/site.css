@@ -1,31 +1,232 @@
+/* Pastel green theme for a clean student project look.
+   Keep it simple: set a small palette, then lightly override Bootstrap components. */
+
+:root {
+  /* Palette */
+  --app-bg: #f2faf5;           /* minty background */
+  --app-bg-2: #e7f6ee;         /* slightly deeper mint */
+  --app-surface: #ffffff;      /* cards, tables */
+  --app-border: #d3e9dc;       /* soft border */
+  --app-text: #1f2b24;         /* deep green-gray */
+  --app-muted: #51635a;
+
+  /* Darker pastel green accents (still soft, but with more contrast) */
+  --app-green: #3f8764;        /* primary */
+  --app-green-2: #356f55;      /* hover */
+  --app-green-3: #2b5e46;      /* active */
+  --app-accent: #bfe8d2;       /* pale highlight */
+
+  --app-radius: 14px;
+  --app-shadow: 0 10px 26px rgba(31, 43, 36, 0.10);
+  --app-shadow-sm: 0 6px 14px rgba(31, 43, 36, 0.08);
+  --app-focus: 0 0 0 0.25rem rgba(79, 154, 115, 0.25);
+
+  /* Bootstrap variables (works with Bootstrap 5+). */
+  --bs-body-bg: var(--app-bg);
+  --bs-body-color: var(--app-text);
+  --bs-border-color: var(--app-border);
+  --bs-link-color: var(--app-green-3);
+  --bs-link-hover-color: var(--app-green-2);
+}
+
 html {
   font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+  html { font-size: 16px; }
 }
 
 body {
-  margin-bottom: 60px;
+  /* Background: keep it soft and avoid mid-page "seams".
+     A mirrored gradient (light -> lighter -> light) can create a visible band at the midpoint on some screens. */
+  min-height: 100vh;
+  background-color: var(--app-bg);
+  background-image:
+    /* Multi-stop fades prevent a crisp "edge" that can read as a horizontal line. */
+    radial-gradient(1200px 560px at 12% -8%,
+      rgba(191, 232, 210, 0.38) 0%,
+      rgba(191, 232, 210, 0.20) 42%,
+      rgba(191, 232, 210, 0.08) 62%,
+      rgba(191, 232, 210, 0.00) 84%),
+    radial-gradient(980px 520px at 92% 0%,
+      rgba(231, 246, 238, 0.56) 0%,
+      rgba(231, 246, 238, 0.26) 46%,
+      rgba(231, 246, 238, 0.10) 66%,
+      rgba(231, 246, 238, 0.00) 86%),
+    linear-gradient(180deg, #eef9f2 0%, #f6fff9 100%);
+  background-repeat: no-repeat;
+  color: var(--app-text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+html {
+  background-color: var(--app-bg);
+}
+
+/* Layout helpers */
+.app-main {
+  padding: 18px 0 42px;
+}
+
+/* Navbar */
+.navbar.navbar-green {
+  background: linear-gradient(180deg, #e1f6ea 0%, #d3f0e1 100%);
+  /* Avoid a harsh separator line; use a softer border and a diffused shadow. */
+  border-bottom: 1px solid rgba(43, 94, 70, 0.10);
+  /* The previous shadow looked like a thick gray band on light backgrounds. */
+  box-shadow: 0 14px 26px -26px rgba(31, 43, 36, 0.65);
+}
+
+.navbar.navbar-green .navbar-brand {
+  color: var(--app-text);
+  letter-spacing: 0.2px;
+}
+
+.navbar.navbar-green .nav-link {
+  color: rgba(31, 43, 36, 0.78);
+}
+
+.navbar.navbar-green .nav-link:hover {
+  color: rgba(31, 43, 36, 1);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background-color: var(--app-green);
+  border-color: var(--app-green);
+  box-shadow: 0 8px 18px rgba(79, 154, 115, 0.18);
+}
+
+.btn-primary:hover {
+  background-color: var(--app-green-2);
+  border-color: var(--app-green-2);
+}
+
+.btn-primary:active {
+  background-color: var(--app-green-3) !important;
+  border-color: var(--app-green-3) !important;
+}
+
+.btn-outline-secondary {
+  border-color: rgba(81, 99, 90, 0.35);
+  color: rgba(31, 43, 36, 0.85);
+}
+
+.btn-outline-secondary:hover {
+  background-color: rgba(191, 232, 210, 0.35);
+  border-color: rgba(81, 99, 90, 0.25);
+  color: var(--app-text);
+}
+
+/* Make Bootstrap "primary" variants match the green theme (used on the Home/Dashboard page). */
+.btn-outline-primary {
+  color: var(--app-green-3);
+  border-color: rgba(63, 135, 100, 0.55);
+}
+
+.btn-outline-primary:hover {
+  color: var(--app-text);
+  background-color: rgba(63, 135, 100, 0.12);
+  border-color: rgba(63, 135, 100, 0.55);
+}
+
+.btn-outline-primary:active {
+  background-color: rgba(63, 135, 100, 0.18) !important;
+  border-color: rgba(43, 94, 70, 0.55) !important;
+}
+
+.text-primary {
+  color: var(--app-green-3) !important;
+}
+
+.bg-primary {
+  background-color: var(--app-green) !important;
+}
+
+.border-primary {
+  border-color: rgba(63, 135, 100, 0.40) !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  box-shadow: var(--app-focus);
+}
+
+/* Cards */
+.card {
+  border-color: var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow-sm);
+  background: var(--app-surface);
+}
+
+.card.card-body {
+  border-radius: var(--app-radius);
+}
+
+/* Tables */
+.table {
+  background: var(--app-surface);
+  border-color: var(--app-border);
+  border-radius: var(--app-radius);
+  overflow: hidden;
+  box-shadow: var(--app-shadow-sm);
+}
+
+.table thead th {
+  background: linear-gradient(180deg, #f4fff9 0%, #eaf8f0 100%);
+  color: rgba(31, 43, 36, 0.85);
+  border-bottom-color: var(--app-border);
+  font-weight: 600;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: rgba(231, 246, 238, 0.55);
+}
+
+.table tbody tr:hover > * {
+  background-color: rgba(191, 232, 210, 0.22);
+}
+
+/* Forms */
+.form-control,
+.form-select {
+  border-color: rgba(211, 233, 220, 0.95);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.form-control::placeholder {
+  color: rgba(81, 99, 90, 0.55);
+}
+
+label.form-label {
+  color: rgba(31, 43, 36, 0.88);
+  font-weight: 600;
+}
+
+.alert {
+  border-radius: var(--app-radius);
+  border-color: rgba(211, 233, 220, 0.9);
+}
+
+/* Keep template behavior for floating labels placeholders */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
