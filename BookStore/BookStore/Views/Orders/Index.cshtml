@@ -1,0 +1,60 @@
+@model IReadOnlyList<BookStore.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="h3 mb-0">Orders</h1>
+        <a asp-controller="Book" asp-action="Index" class="btn btn-outline-primary">Browse books</a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">No orders yet.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Date</th>
+                    <th>Books</th>
+                    <th class="text-end">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var order in Model)
+                {
+                    var total = order.Items.Sum(i => i.UnitPrice * i.Quantity);
+                    <tr>
+                        <td class="fw-semibold">#@order.Id</td>
+                        <td>@order.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            @if (order.Items.Count == 0)
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                            else
+                            {
+                                <ul class="mb-0">
+                                    @foreach (var item in order.Items)
+                                    {
+                                        <li>
+                                            @item.Book.Title (x@item.Quantity)
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </td>
+                        <td class="text-end">@total.ToString("0.00")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
