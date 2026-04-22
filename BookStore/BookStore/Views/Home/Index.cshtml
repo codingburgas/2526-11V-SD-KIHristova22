@@ -5,15 +5,6 @@
 <div class="container py-4 py-lg-5">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-9">
-            <h1 class="h3 mb-2">Dashboard</h1>
-
-            <div class="d-flex flex-wrap gap-2 mb-4">
-                <a class="btn btn-primary" asp-controller="Book" asp-action="Index">Browse Books</a>
-                <a class="btn btn-outline-primary" asp-controller="Book" asp-action="TopBooks">Categories</a>
-                <a class="btn btn-outline-primary" asp-controller="Order" asp-action="Index">Orders</a>
-                <button type="button" class="btn btn-outline-secondary" disabled>Reports</button>
-            </div>
-
             <div class="row g-3">
                 <div class="col-12 col-md-4">
                     <div class="card h-100">
@@ -26,12 +17,13 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="card h-100">
+                    <div class="card h-100 position-relative">
                         <div class="card-body">
                             <div class="fw-semibold">Categories</div>
+                            <a class="stretched-link" asp-controller="Category" asp-action="Index" aria-label="Open categories"></a>
                         </div>
                         <div class="card-footer bg-transparent">
-                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Book" asp-action="TopBooks">View Categories</a>
+                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Category" asp-action="Index">View Categories</a>
                         </div>
                     </div>
                 </div>
