@@ -1,0 +1,68 @@
+@model BookStore.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+    var total = Model.Items.Sum(i => i.UnitPrice * i.Quantity);
+}
+
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+            <h1 class="h3 mb-1">Order #@Model.Id</h1>
+            <div class="text-muted small">
+                Created: @Model.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+            </div>
+        </div>
+
+        <a asp-controller="Order" asp-action="Index" class="btn btn-outline-secondary">Back to orders</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="fw-semibold">Items</div>
+                <div class="fs-5">
+                    Total: <span class="fw-semibold">@total.ToString("0.00")</span>
+                </div>
+            </div>
+
+            @if (Model.Items.Count == 0)
+            {
+                <div class="alert alert-info mb-0">This order has no items.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle mb-0">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th class="text-end">Quantity</th>
+                            <th class="text-end">Price / item</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            var subtotal = item.UnitPrice * item.Quantity;
+                            <tr>
+                                <td>@item.Book.Title</td>
+                                <td class="text-end">@item.Quantity</td>
+                                <td class="text-end">@item.UnitPrice.ToString("0.00")</td>
+                                <td class="text-end">@subtotal.ToString("0.00")</td>
+                            </tr>
+                        }
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-end">Total</th>
+                            <th class="text-end">@total.ToString("0.00")</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

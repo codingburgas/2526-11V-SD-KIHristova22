@@ -1,5 +1,6 @@
 using BookStore.Data;
 using BookStore.Models;
+using BookStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,25 @@ public class BookController(ApplicationDbContext db) : Controller
 
         // Views are stored under Views/Books (plural) in this project.
         return View("~/Views/Books/Details.cshtml", book);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> TopBooks()
+    {
+        var topBooks = await _db.OrderItems
+            .AsNoTracking()
+            .GroupBy(oi => new { oi.BookId, Title = oi.Book.Title })
+            .Select(g => new TopBookViewModel
+            {
+                Title = g.Key.Title,
+                TotalSoldQuantity = g.Sum(x => x.Quantity)
+            })
+            .OrderByDescending(x => x.TotalSoldQuantity)
+            .ThenBy(x => x.Title)
+            .Take(5)
+            .ToListAsync();
+
+        return View("~/Views/Books/TopBooks.cshtml", topBooks);
     }
 
     [HttpGet]

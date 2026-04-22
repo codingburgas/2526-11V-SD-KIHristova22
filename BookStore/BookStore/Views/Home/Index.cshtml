@@ -9,7 +9,7 @@
 
             <div class="d-flex flex-wrap gap-2 mb-4">
                 <a class="btn btn-primary" asp-controller="Book" asp-action="Index">Browse Books</a>
-                <button type="button" class="btn btn-outline-primary" disabled>Categories</button>
+                <a class="btn btn-outline-primary" asp-controller="Book" asp-action="TopBooks">Categories</a>
                 <a class="btn btn-outline-primary" asp-controller="Order" asp-action="Index">Orders</a>
                 <button type="button" class="btn btn-outline-secondary" disabled>Reports</button>
             </div>
@@ -31,7 +31,7 @@
                             <div class="fw-semibold">Categories</div>
                         </div>
                         <div class="card-footer bg-transparent">
-                            <button type="button" class="btn btn-sm btn-outline-primary w-100" disabled>Open</button>
+                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Book" asp-action="TopBooks">View Categories</a>
                         </div>
                     </div>
                 </div>
