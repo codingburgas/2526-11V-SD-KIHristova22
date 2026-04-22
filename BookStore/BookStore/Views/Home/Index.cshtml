@@ -1,43 +1,123 @@
+@using BookStore.Models
+@using Microsoft.EntityFrameworkCore
+@inject BookStore.Data.ApplicationDbContext Db
+
 @{
     ViewData["Title"] = "Home";
+
+    // HomeController doesn't pass data; keep it view-only by loading a small list here.
+    var latestBooks = Db.Books
+        .AsNoTracking()
+        .OrderByDescending(b => b.CreatedAt)
+        .Take(3)
+        .ToList();
 }
 
 <div class="container py-4 py-lg-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-9">
-            <div class="row g-3">
-                <div class="col-12 col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="fw-semibold">Books</div>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Book" asp-action="Index">Browse</a>
-                        </div>
-                    </div>
+    <section class="rounded-4 border p-4 p-md-5 mb-4"
+             style="background: linear-gradient(135deg, rgba(25,135,84,0.14), rgba(255,255,255,1) 60%);">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-lg-7">
+                <h1 class="display-6 fw-semibold mb-2">Welcome to BookStore</h1>
+                <p class="text-muted mb-3">
+                    Browse books, explore categories, and discover top reads.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a class="btn btn-success" asp-controller="Book" asp-action="Index">Browse Books</a>
+                    <a class="btn btn-outline-success" asp-controller="Category" asp-action="Index">Explore Categories</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Order" asp-action="Index">Your Orders</a>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="card h-100 position-relative">
-                        <div class="card-body">
-                            <div class="fw-semibold">Categories</div>
-                            <a class="stretched-link" asp-controller="Category" asp-action="Index" aria-label="Open categories"></a>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Category" asp-action="Index">View Categories</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="fw-semibold">Orders</div>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Order" asp-action="Index">View Orders</a>
+            </div>
+            <div class="col-12 col-lg-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-semibold mb-1">Quick Tip</div>
+                        <div class="text-muted">
+                            Start with <span class="fw-semibold">Browse Books</span>, then use the category filter to narrow your search.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="h4 mb-0">Explore</h2>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-semibold mb-1">Browse Books</div>
+                        <div class="text-muted">See all available books and use the category filter.</div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a class="btn btn-outline-success w-100" asp-controller="Book" asp-action="Index">Browse Books</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-semibold mb-1">Categories</div>
+                        <div class="text-muted">Explore genres and quickly find what you like.</div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a class="btn btn-outline-success w-100" asp-controller="Category" asp-action="Index">View Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-semibold mb-1">Top Books</div>
+                        <div class="text-muted">Top 5 most sold books based on orders.</div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a class="btn btn-outline-success w-100" asp-controller="Book" asp-action="TopBooks">View Top Books</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="h4 mb-0">Latest Books</h2>
+            <a class="btn btn-sm btn-outline-secondary" asp-controller="Book" asp-action="Index">See all</a>
+        </div>
+
+        @if (latestBooks.Count == 0)
+        {
+            <div class="alert alert-info mb-0">
+                No books yet. Go to <a asp-controller="Book" asp-action="Create" class="alert-link">Add Book</a> to create the first one.
+            </div>
+        }
+        else
+        {
+            <div class="row g-3">
+                @foreach (var book in latestBooks)
+                {
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="fw-semibold mb-1">@book.Title</div>
+                                <div class="text-muted">Price: @book.Price.ToString("0.00")</div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a class="btn btn-sm btn-outline-primary w-100"
+                                   asp-controller="Book"
+                                   asp-action="Details"
+                                   asp-route-id="@book.Id">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </section>
 </div>
