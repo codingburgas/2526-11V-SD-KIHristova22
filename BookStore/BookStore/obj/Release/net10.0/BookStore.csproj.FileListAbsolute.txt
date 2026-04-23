@@ -216,7 +216,6 @@ C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\ne
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\nezrqnk58p-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\v0zgfp0y55-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\yfc7ypekbg-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\02wuhz81vl-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\5goexuogjg-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\m3b0asl32z-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\vpve6hr6ry-{0}-t1cqhe9u97-t1cqhe9u97.gz
@@ -291,3 +290,4 @@ C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\ne
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\BookStore.pdb
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\BookStore.genruntimeconfig.cache
 C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\ref\BookStore.dll
+C:\Users\krist\Documents\project-KIHristova22\BookStore\BookStore\obj\Release\net10.0\compressed\02wuhz81vl-{0}-uetnflgywh-uetnflgywh.gz

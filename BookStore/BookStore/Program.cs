@@ -356,34 +356,70 @@ static async Task SeedRolesAndAdminAsync(IServiceProvider sp)
     var roleManager = sp.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
 
-    if (!await roleManager.RoleExistsAsync("Admin"))
+    var roles = new[] { "Admin", "User" };
+    foreach (var role in roles)
     {
-        await roleManager.CreateAsync(new IdentityRole("Admin"));
-    }
-
-    const string adminEmail = "admin@bookstore.com";
-    const string adminPassword = "Admin123!";
-
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser is null)
-    {
-        adminUser = new ApplicationUser
+        if (!await roleManager.RoleExistsAsync(role))
         {
-            UserName = adminEmail,
-            Email = adminEmail,
-            EmailConfirmed = true
-        };
-
-        var createResult = await userManager.CreateAsync(adminUser, adminPassword);
-        if (!createResult.Succeeded)
-        {
-            // If user creation fails, don't crash app startup.
-            return;
+            await roleManager.CreateAsync(new IdentityRole(role));
         }
     }
 
-    if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+    await EnsureSeededUserAsync(userManager, "admin@bookstore.com", "Admin123!", "Admin");
+    await EnsureSeededUserAsync(userManager, "user@bookstore.com", "User123!", "User");
+
+    static async Task EnsureSeededUserAsync(UserManager<ApplicationUser> userManager, string email, string password, string role)
     {
-        await userManager.AddToRoleAsync(adminUser, "Admin");
+        var user = await userManager.FindByEmailAsync(email);
+        if (user is null)
+        {
+            user = new ApplicationUser
+            {
+                UserName = email,
+                Email = email,
+                EmailConfirmed = true
+            };
+
+            var createResult = await userManager.CreateAsync(user, password);
+            if (!createResult.Succeeded)
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (!user.EmailConfirmed)
+            {
+                user.EmailConfirmed = true;
+                await userManager.UpdateAsync(user);
+            }
+
+            var passwordValid = await userManager.CheckPasswordAsync(user, password);
+            if (!passwordValid)
+            {
+                if (await userManager.HasPasswordAsync(user))
+                {
+                    var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+                    var resetResult = await userManager.ResetPasswordAsync(user, resetToken, password);
+                    if (!resetResult.Succeeded)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    var addPasswordResult = await userManager.AddPasswordAsync(user, password);
+                    if (!addPasswordResult.Succeeded)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        if (!await userManager.IsInRoleAsync(user, role))
+        {
+            await userManager.AddToRoleAsync(user, role);
+        }
     }
 }

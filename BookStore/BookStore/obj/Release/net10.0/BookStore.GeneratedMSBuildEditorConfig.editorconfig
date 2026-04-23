@@ -34,12 +34,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Categories/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Books/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Categories/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Books/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Books/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Books/TopBooks.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcVG9wQm9va3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Categories/Index.cshtml]
@@ -52,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Orders/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/krist/Documents/project-KIHristova22/BookStore/BookStore/Views/Orders/Details.cshtml]

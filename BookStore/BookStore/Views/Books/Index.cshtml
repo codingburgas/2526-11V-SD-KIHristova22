@@ -1,0 +1,67 @@
+@model IReadOnlyList<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="h3 mb-0">Books</h1>
+
+        <form method="get" class="d-flex gap-2 align-items-center">
+            <select name="categoryId" class="form-select" style="min-width: 220px;"
+                    asp-items="ViewBag.Categories">
+                <option value="">All categories</option>
+            </select>
+            <button type="submit" class="btn btn-outline-primary">Filter</button>
+        </form>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No books yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th class="text-end">Price</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td class="text-muted">-</td>
+                        <td>@(book.Category?.Name ?? $"#{book.CategoryId}")</td>
+                        <td class="text-end">@book.Price.ToString("0.00")</td>
+                        <td class="text-end">
+                            <a asp-controller="Book"
+                               asp-action="Details"
+                               asp-route-id="@book.Id"
+                               class="btn btn-sm btn-outline-primary">
+                                View Details
+                            </a>
+                            <a asp-controller="Order"
+                               asp-action="Create"
+                               asp-route-bookId="@book.Id"
+                               class="btn btn-sm btn-success ms-1">
+                                Order
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

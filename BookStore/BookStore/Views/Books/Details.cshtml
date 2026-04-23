@@ -1,0 +1,48 @@
+@model BookStore.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+
+    // The current Book model in this project may not yet include Author/Description.
+    // Use reflection so the page still compiles now and will automatically light up
+    // if those properties get added later.
+    var author = typeof(BookStore.Models.Book).GetProperty("Author")?.GetValue(Model) as string;
+    var description = typeof(BookStore.Models.Book).GetProperty("Description")?.GetValue(Model) as string;
+}
+
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+            <h1 class="h3 mb-1">@Model.Title</h1>
+            <div class="text-muted small">
+                Category: <span class="fw-semibold">@(Model.Category?.Name ?? $"#{Model.CategoryId}")</span>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a asp-controller="Book" asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+            <a asp-controller="Order" asp-action="Create" asp-route-bookId="@Model.Id" class="btn btn-success">Order</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Title</dt>
+                <dd class="col-sm-9">@Model.Title</dd>
+
+                <dt class="col-sm-3">Author</dt>
+                <dd class="col-sm-9">@(!string.IsNullOrWhiteSpace(author) ? author : "-")</dd>
+
+                <dt class="col-sm-3">Price</dt>
+                <dd class="col-sm-9">@Model.Price.ToString("0.00")</dd>
+
+                <dt class="col-sm-3">Category</dt>
+                <dd class="col-sm-9">@(Model.Category?.Name ?? $"#{Model.CategoryId}")</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">@(!string.IsNullOrWhiteSpace(description) ? description : "-")</dd>
+            </dl>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+@model IReadOnlyList<BookStore.ViewModels.TopBookViewModel>
+
+@{
+    ViewData["Title"] = "Top 5 Most Sold Books";
+}
+
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="h3 mb-0">Top 5 Most Sold Books</h1>
+        <a asp-controller="Book" asp-action="Index" class="btn btn-outline-secondary">Back to books</a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info mb-0">No sales yet.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th class="text-end">Total Sold</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>@row.Title</td>
+                        <td class="text-end">@row.TotalSoldQuantity</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
