@@ -6,6 +6,15 @@ public class Book : SoftDeletableEntity
     [Required]
     [StringLength(200)]
     public string Title { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(200)]
+    public string Author { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(2000)]
+    public string Description { get; set; } = string.Empty;
+
     [Required]
     [Range(typeof(decimal), "0", "1000")]
     [Column(TypeName = "decimal(18,2)")]
