@@ -78,9 +78,6 @@ The project follows standard MVC structure:
 4. Database will be created automatically
 5. Default accounts will be seeded
 ---
-## 📸 Screenshots
-
----
 ## 📌 Project Structure
 - Controllers/
 - Models/
